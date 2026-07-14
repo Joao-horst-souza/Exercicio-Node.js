@@ -82,23 +82,23 @@ async function ranking(){
 //     }
 // }
 
-// async function remover() {
-//     await listar();
-//     const id = Number(prompt('\nID do produto a remover: '));
-//     const ok = prompt('Confirmar remoção? (s/n): ');
+ async function remover() {
+     await listar();
+    const id = Number(prompt('\nID do produto a remover: '));
+     const ok = prompt('Confirmar remoção? (s/n): ');
 
-//     if (ok.toLowerCase() !== 's') { console.log('Cancelado.'); return; }
+     if (ok.toLowerCase() !== 's') { console.log('Cancelado.'); return; }
 
-//     const r = await client.query(
-//         'DELETE FROM produtos WHERE id = $1 RETURNING nome',
-//         [id]
-//     );
-//     if (r.rows.length === 0) {
-//         console.log('❌ Produto não encontrado.');
-//     } else {
-//         console.log(`\n✅ "${r.rows[0].nome}" removido.`);
-//     }
-// }
+    const r = await client.query(
+        'DELETE FROM jogos WHERE id = $1 RETURNING titulo',
+         [id]
+    );
+    if (r.rows.length === 0) {
+        console.log('❌ Produto não encontrado.');
+     } else {
+         console.log(`\n✅ "${r.rows[0].titulo}" removido.`);
+    }
+}
 
 
 
@@ -132,7 +132,7 @@ async function menu() {
                 case '3': await ranking(); break;
                 //case '4': await adicionar(); break;
                 //case '5': await atualizar();   break;
-                //case '6': await remover(); break;
+                case '6': await remover(); break;
                 case '0': rodando = false;   break;
                 default: console.log('❌ Opção inválida.');
             }
@@ -140,7 +140,7 @@ async function menu() {
 
     } catch (erro) {
         console.error('❌ Erro no sistema, Vá embora:');
-        console.error(error.stack);
+        console.error(erro.stack);
 
     } finally {
         await client.end();
