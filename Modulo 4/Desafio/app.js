@@ -64,6 +64,7 @@ async function ranking(){
         console.log("Erro ao buscar ranking:", erro.message);
     }
 }
+
 async function atualizar(){
 
     await listar();
@@ -126,7 +127,7 @@ async function menu() {
                 case '1': await listar(); break;
                 case '2': await buscar(); break;
                 case '3': await ranking(); break;
-                //case '4': await adicionar(); break;
+                case '4': await adicionar(); break;
                 case '5': await atualizar();   break;
                 case '6': await remover(); break;
                 case '0': rodando = false;   break;
