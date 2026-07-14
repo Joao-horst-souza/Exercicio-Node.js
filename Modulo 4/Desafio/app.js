@@ -98,11 +98,8 @@ const nota = Number(prompt('\n Nova nota: '));
 }
 
 async function adicionar() {
-    const client = criarCliente();
-    try {
-        await client.connect();
-
-        console.log('\n⚗️  CADASTRAR NOVO ITEM\n');
+    
+        console.log('\n⚗️  CADASTRAR NOVO JOGO\n');
         const titulo    = prompt('Titulo: ');
         const genero      = prompt('Genero: ');
         const nota    = prompt('Nota: ');
@@ -115,7 +112,7 @@ async function adicionar() {
         }
 
         const resultado = await client.query(
-            `INSERT INTO itens (titulo, genero, nota, lancamento)
+            `INSERT INTO jogos (titulo, genero, nota, lancamento)
              VALUES ($1, $2, $3, $4)
              RETURNING *`,
             [titulo, genero, nota, lancamento]
@@ -124,11 +121,6 @@ async function adicionar() {
         console.log('\n✅ Item cadastrado com sucesso!');
         console.log(`   ID: ${resultado.rows[0].id} | ${resultado.rows[0].titulo}`);
 
-    } catch (erro) {
-        console.log('❌ Erro ao cadastrar:', erro.message);
-    } finally {
-        await client.end();
-    }
 }
 
 async function menu() {
