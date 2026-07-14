@@ -70,12 +70,12 @@ async function atualizar(){
 const id = Number(prompt('\n ID do produto: '));
 const nota = Number(prompt('\n Nova nota: '));
 
-const a = await client.query('UPDATE jogos SET nota = $1 WHERE id = $2 RETURNING nome', [nota, id]);
-if (a.rows.length === 0) {
-console.log('Jogo não encontrado, digita certo tongão');
-} else {
-console.log(`\n Nota de "${a.rows[0].nome}" atualizado!`);
-}
+    const a = await client.query('UPDATE jogos SET nota = $1 WHERE id = $2 RETURNING titulo', [nota, id]);
+    if (a.rows.length === 0) {
+        console.log('Jogo não encontrado, digita certo tongão');
+    } else {
+            console.log(`\n Nota de "${a.rows[0].nota}" atualizado!`);
+        }
     }
 
  async function remover() {
