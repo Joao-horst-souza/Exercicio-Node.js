@@ -49,6 +49,21 @@ async function buscar() {
     });
 }
 
+async function ranking(){
+    try {
+        const r = await client.query(`SELECT titulo, nota FROM jogos ORDER BY nota DESC LIMIT 3`);
+    
+
+        console.log("\n=== TOP 3 JOGOS ===\n");
+
+        r.rows.forEach((jogo, index) => {
+            console.log(`${index + 1}º lugar - ${jogo.titulo} | Nota: ${jogo.nota}`);
+        });
+
+    } catch (erro) {
+        console.log("Erro ao buscar ranking:", erro.message);
+    }
+}
 
 
 // async function atualizar() {
@@ -112,17 +127,20 @@ async function menu() {
             const opcao = prompt('\nEscolha uma opção: ');
 
             switch (opcao) {
-                case '1': await listar  ();    break;
+                case '1': await listar(); break;
                 case '2': await buscar(); break;
-                case '3': await atualizar(); break;
-                case '4': await remover();   break;
+                case '3': await ranking(); break;
+                //case '4': await adicionar(); break;
+                //case '5': await atualizar();   break;
+                //case '6': await remover(); break;
                 case '0': rodando = false;   break;
                 default: console.log('❌ Opção inválida.');
             }
         }
 
     } catch (erro) {
-        console.log('❌ Erro no sistema, Vá embora:', erro.message);
+        console.error('❌ Erro no sistema, Vá embora:');
+        console.error(error.stack);
 
     } finally {
         await client.end();
