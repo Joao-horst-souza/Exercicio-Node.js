@@ -96,7 +96,7 @@ const nota = Number(prompt('\n Nova nota: '));
     }
 }
 
-async function Adicionar() {
+async function adicionar() {
     const client = criarCliente();
     try {
         await client.connect();
