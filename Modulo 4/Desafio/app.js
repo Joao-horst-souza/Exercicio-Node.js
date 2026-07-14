@@ -64,23 +64,19 @@ async function ranking(){
         console.log("Erro ao buscar ranking:", erro.message);
     }
 }
+async function atualizar(){
 
+    await listar();
+    const id = Number(prompt('\n ID do produto: '));
+    const nota = Number(prompt('\n Nova nota: '));
 
-// async function atualizar() {
-//     await listar();
-//     const id    = Number(prompt('\nID do produto: '));
-//     const preco = Number(prompt('Novo preço: '));
-
-//     const r = await client.query(
-//         'UPDATE produtos SET preco = $1 WHERE id = $2 RETURNING nome',
-//         [preco, id]
-//     );
-//     if (r.rows.length === 0) {
-//         console.log('❌ Produto não encontrado.');
-//     } else {
-//         console.log(`\n✅ Preço de "${r.rows[0].nome}" atualizado!`);
-//     }
-// }
+    const a = await client.query('UPDATE jogos SET nota = $1 WHERE id = $2 RETURNING nome', [nota, id]);
+    if (a.rows.length === 0) {
+        console.log('Jogo não encontrado, digita certo tongão');
+    } else {
+            console.log(`\n Nota de "${a.rows[0].nome}" atualizado!`);
+        }
+    }
 
 // async function remover() {
 //     await listar();
@@ -131,7 +127,7 @@ async function menu() {
                 case '2': await buscar(); break;
                 case '3': await ranking(); break;
                 //case '4': await adicionar(); break;
-                //case '5': await atualizar();   break;
+                case '5': await atualizar();   break;
                 //case '6': await remover(); break;
                 case '0': rodando = false;   break;
                 default: console.log('❌ Opção inválida.');
