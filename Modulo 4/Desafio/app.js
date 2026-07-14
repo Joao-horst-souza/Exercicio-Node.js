@@ -67,15 +67,15 @@ async function ranking(){
 async function atualizar(){
 
     await listar();
-    const id = Number(prompt('\n ID do produto: '));
-    const nota = Number(prompt('\n Nova nota: '));
+const id = Number(prompt('\n ID do produto: '));
+const nota = Number(prompt('\n Nova nota: '));
 
-    const a = await client.query('UPDATE jogos SET nota = $1 WHERE id = $2 RETURNING nome', [nota, id]);
-    if (a.rows.length === 0) {
-        console.log('Jogo não encontrado, digita certo tongão');
-    } else {
-            console.log(`\n Nota de "${a.rows[0].nome}" atualizado!`);
-        }
+const a = await client.query('UPDATE jogos SET nota = $1 WHERE id = $2 RETURNING nome', [nota, id]);
+if (a.rows.length === 0) {
+console.log('Jogo não encontrado, digita certo tongão');
+} else {
+console.log(`\n Nota de "${a.rows[0].nome}" atualizado!`);
+}
     }
 
  async function remover() {
@@ -96,7 +96,39 @@ async function atualizar(){
     }
 }
 
+async function Adicionar() {
+    const client = criarCliente();
+    try {
+        await client.connect();
 
+        console.log('\n⚗️  CADASTRAR NOVO ITEM\n');
+        const titulo    = prompt('Titulo: ');
+        const genero      = prompt('Genero: ');
+        const nota    = prompt('Nota: ');
+        const lancamento  = prompt('Data de lancamento: ');
+       
+
+        if (!titulo || !genero) {
+            console.log('❌ Titulo e genero são obrigatórios.');
+            return;
+        }
+
+        const resultado = await client.query(
+            `INSERT INTO itens (titulo, genero, nota, lancamento)
+             VALUES ($1, $2, $3, $4)
+             RETURNING *`,
+            [titulo, genero, nota, lancamento]
+        );
+
+        console.log('\n✅ Item cadastrado com sucesso!');
+        console.log(`   ID: ${resultado.rows[0].id} | ${resultado.rows[0].titulo}`);
+
+    } catch (erro) {
+        console.log('❌ Erro ao cadastrar:', erro.message);
+    } finally {
+        await client.end();
+    }
+}
 
 async function menu() {
 
@@ -126,8 +158,8 @@ async function menu() {
                 case '1': await listar(); break;
                 case '2': await buscar(); break;
                 case '3': await ranking(); break;
-                //case '4': await adicionar(); break;
-                case '5': await atualizar();   break;
+                case '4': await adicionar(); break;
+                //case '5': await atualizar();   break;
                 case '6': await remover(); break;
                 case '0': rodando = false;   break;
                 default: console.log('❌ Opção inválida.');
