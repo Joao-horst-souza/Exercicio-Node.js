@@ -20,9 +20,12 @@ async function VerAventureiros() {
     listarJogos.rows.forEach( Aventureiros => {
         console.log(` ${aventureiros.id} | ${aventureiros.nome} | ${aventureiros.nivel} | ${aventureiros.xp} | ${aventureiros.classe_id} | ${aventureiros.ativo} `)
     });
+    
 }
 
 async function VerMissões() {
+
+
 
         try {
         const r = await client.query(`SELECT titulo, dificuldade, recompensa_xp, recompensa_ouro FROM missoes WHERE concluida = 'false'`);
