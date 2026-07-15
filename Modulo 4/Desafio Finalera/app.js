@@ -37,6 +37,13 @@ async function VerAventureiros() {
 }
 
 
+
+
+
+
+
+
+
 async function menu() {
 
     try {
