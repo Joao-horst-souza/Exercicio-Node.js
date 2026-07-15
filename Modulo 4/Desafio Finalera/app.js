@@ -14,13 +14,10 @@ const client = new Client({
 
 async function VerMissões() {
 
-    try{
-        
         try {
-        const r = await client.query(`SELECT * FROM missoes ORDER BY id`);
-    
+        const r = await client.query(`SELECT titulo, dificuldade, recompensa_xp, recompensa_ouro FROM missoes WHERE concluida = 'false'`);
 
-        console.log("\n=== TOP 3 JOGOS ===\n");
+        console.log("\n=== MISSÕES A CONCLUIR ===\n");
 
         r.rows.forEach((jogo, index) => {
             console.log(`${index + 1}º lugar - ${jogo.titulo} | Nota: ${jogo.nota}`);
@@ -29,7 +26,6 @@ async function VerMissões() {
         } catch (erro) {
             console.log("Erro ao buscar ranking:", erro.message);
         }
-    }
 }
 
 async function menu() {
