@@ -12,6 +12,25 @@ const client = new Client({
     database: 'guild_db'
 });
 
+async function VerMissões() {
+
+    try{
+        
+        try {
+        const r = await client.query(`SELECT * FROM missoes ORDER BY id`);
+    
+
+        console.log("\n=== TOP 3 JOGOS ===\n");
+
+        r.rows.forEach((jogo, index) => {
+            console.log(`${index + 1}º lugar - ${jogo.titulo} | Nota: ${jogo.nota}`);
+        });
+
+        } catch (erro) {
+            console.log("Erro ao buscar ranking:", erro.message);
+        }
+    }
+}
 
 async function menu() {
 
