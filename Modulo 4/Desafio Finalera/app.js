@@ -17,10 +17,15 @@ async function VerAventureiros() {
     const verAventureiros = await client.query('SELECT * FROM aventureiros ORDER BY id');
         console.log('\n ===JOGOS=== \n');
         console.log('     ID    |    Nome     |     Nivel     |     xp     |     Classe    |    Ativo     |    ');
-    verAventureiros.rows.forEach( aventureiros => {
+    listarJogos.rows.forEach( Aventureiros => {
         console.log(` ${aventureiros.id} | ${aventureiros.nome} | ${aventureiros.nivel} | ${aventureiros.xp} | ${aventureiros.classe_id} | ${aventureiros.ativo} `)
     });
+    
 }
+
+async function VerMissões() {
+
+
 
         try {
         const r = await client.query(`SELECT titulo, dificuldade, recompensa_xp, recompensa_ouro FROM missoes WHERE concluida = 'false'`);
