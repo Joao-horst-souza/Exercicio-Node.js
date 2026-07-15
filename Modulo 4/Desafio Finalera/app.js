@@ -12,16 +12,21 @@ const client = new Client({
     database: 'guild_db'
 });
 
-async function VerAventureiros() {
-    
-    const verAventureiros = await client.query('SELECT * FROM aventureiros ORDER BY id');
-        console.log('\n ===JOGOS=== \n');
-        console.log('     ID    |    Nome     |     Nivel     |     xp     |     Classe    |    Ativo     |    ');
-    listarJogos.rows.forEach( Aventureiros => {
-        console.log(` ${aventureiros.id} | ${aventureiros.nome} | ${aventureiros.nivel} | ${aventureiros.xp} | ${aventureiros.classe_id} | ${aventureiros.ativo} `)
-    });
-}
+async function VerMissões() {
 
+        try {
+        const r = await client.query(`SELECT titulo, dificuldade, recompensa_xp, recompensa_ouro FROM missoes WHERE concluida = 'false'`);
+
+        console.log("\n=== MISSÕES A CONCLUIR ===\n");
+
+        r.rows.forEach((missoes) => {
+            console.log(` Titulo: ${missoes.titulo} | Dificuldade: ${missoes.dificuldade} | EXPERIENCE POINTS: ${missoes.recompensa_xp} | RECOMPENSA: ${missoes.recompensa_ouro}`);
+        });
+
+        } catch (erro) {
+            console.log("Erro ao buscar ranking:", erro.message);
+        }
+}
 
 
 async function menu() {
