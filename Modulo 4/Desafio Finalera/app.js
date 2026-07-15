@@ -22,6 +22,19 @@ async function VerAventureiros() {
     });
 }
 
+        try {
+        const r = await client.query(`SELECT titulo, dificuldade, recompensa_xp, recompensa_ouro FROM missoes WHERE concluida = 'false'`);
+
+        console.log("\n=== MISSÕES A CONCLUIR ===\n");
+
+        r.rows.forEach((missoes) => {
+            console.log(` Titulo: ${missoes.titulo} | Dificuldade: ${missoes.dificuldade} | EXPERIENCE POINTS: ${missoes.recompensa_xp} | RECOMPENSA: ${missoes.recompensa_ouro}`);
+        });
+
+        } catch (erro) {
+            console.log("Erro ao buscar ranking:", erro.message);
+        }
+}
 
 
 async function menu() {
